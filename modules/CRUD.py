@@ -33,8 +33,9 @@ def login():
 
 # ADMINS CRUD
 def registro_eventos():
-    eventos = u.leer_json("data/eventos.json")
-    if eventos is None:
+    try:
+        eventos = u.leer_json("data/eventos.json")
+    except FileNotFoundError:
         eventos = []
     print(">>>>  ➕ Nuevo Evento <<<<<\n")
 
@@ -109,7 +110,7 @@ def registro_artistas():
 def asignar_artista_evento():
     # Mostrar eventos disponibles
     eventos = u.leer_json("data/eventos.json")
-    if eventos is None or len(eventos) == 0:
+    if not eventos:
         print("No hay eventos disponibles.")
         return
     print(">>>> 📅 Eventos Disponibles <<<<<")
@@ -123,7 +124,7 @@ def asignar_artista_evento():
 
     # Mostrar artistas disponibles
     artistas = u.leer_json("data/artistas.json")
-    if artistas is None or len(artistas) == 0:
+    if not artistas:
         print("No hay artistas disponibles.")
         return
     print(">>>> 🎨 Artistas Disponibles <<<<<")
@@ -154,13 +155,13 @@ def asignar_artista_evento():
 
 def monitorear_aforo():
     eventos = u.leer_json("data/eventos.json")
-    if eventos is None or len(eventos) == 0:
+    if not eventos:
         print("No hay eventos disponibles.")
         return
 
     # Filtrar solo eventos activos
     activos = [e for e in eventos if e.get("estado") == "activo"]
-    if len(activos) == 0:
+    if not activos:
         print("No hay eventos activos para monitorear.")
         return
 
@@ -259,7 +260,7 @@ def ver_proximos_eventos():
 
 def listado_asistentes():
     asistentes = u.leer_json("data/asistentes.json")
-    if asistentes is None or len(asistentes) == 0:
+    if not asistentes:
         print("No hay asistentes registrados.")
         return
     print(">>>> 👥 Listado de Asistentes <<<<<")
@@ -292,7 +293,7 @@ def eventos_menos_asistentes():
 def agenda_presentaciones():
     artista_id = input("Ingrese su ID de artista: ")
     asignaciones = u.leer_json("data/asignaciones_artistas.json")
-    if asignaciones is None or len(asignaciones) == 0:
+    if not asignaciones:
         print("No hay asignaciones de presentaciones.")
         return
     mis_asignaciones = [a for a in asignaciones if a['artista_id'] == artista_id]
@@ -313,7 +314,7 @@ def agenda_presentaciones():
 def detalles_eventos():
     artista_id = input("Ingrese su ID de artista: ")
     asignaciones = u.leer_json("data/asignaciones_artistas.json")
-    if asignaciones is None or len(asignaciones) == 0:
+    if not asignaciones:
         print("No hay asignaciones de presentaciones.")
         return
     mis_asignaciones = [a for a in asignaciones if a['artista_id'] == artista_id]
@@ -363,7 +364,7 @@ def nuevo_asistente():
 
 def ver_eventos_disponibles():
     eventos = u.leer_json("data/eventos.json")
-    if eventos is None or len(eventos) == 0:
+    if not eventos:
         print("No hay eventos disponibles.")
         return
     # Filtrar eventos no bloqueados
