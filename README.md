@@ -43,11 +43,13 @@ The project was managed under the Scrum framework:
 | Team Velocity (VE) | 1.0 (100%) | All planned stories were completed |
 | Estimation Effectiveness (EFC) | 0.85 (85%) | The team finished faster than estimated, with a slight overestimation of hours |
 
+---
+
 ## 📎 Documentation
 
-- [Project Management Document (PDF)](docs/GESTION%20DEL%20PROYECTO%20CultuVivo.pdf)
-- [Product Backlog (Excel)](docs/Product%20Backlog.xlsx)
-- [Sprint Planning (Excel)](docs/Sprint%20Planning.xlsx)
+- [Project Management Document (PDF)](docs/project-management.pdf)
+- [Product Backlog (Excel)](docs/product-backlog.xlsx)
+- [Sprint Planning (Excel)](docs/sprint-planning.xlsx)
 
 ---
 
@@ -96,9 +98,9 @@ cultuvivo-events-system
 │   ├── eventos.json
 │   └── inscripciones.json
 ├── docs/
-│   ├── GESTION DEL PROYECTO CultuVivo.pdf
-│   ├── Product Backlog.xlsx
-│   └── Sprint Planning.xlsx
+│   ├── project-management.pdf
+│   ├── product-backlog.xlsx
+│   └── sprint-planning.xlsx
 ├── modules/
 │   ├── CRUD.py
 │   ├── messages.py
