@@ -1,94 +1,112 @@
-﻿# 🎭 Fundación CultuVivo
+# CultuVivo Events Management System
 
-## Sistema de gestión de eventos culturales CultuVivo
-
-### 📘 Descripción general
-
-**CultuVivo** es un sistema de gestión cultural que permite administrar **eventos, artistas y asistentes**.  
-El proyecto fue desarrollado aplicando la **metodología ágil Scrum**, con el objetivo de fomentar la organización, trazabilidad y mejora continua en la planificación y ejecución del software.
+A terminal-based system for managing cultural events, artists, and attendees — built in Python with a role-based menu (admin, artist, attendee) and JSON file storage. Developed as a team project using Scrum.
 
 ---
 
-### 💪 Equipo Scrum
+## 🔄 Features
+
+- Full CRUD for events, artists, and attendees
+- Role-based login: admin, artist, or attendee, each with its own menu
+- Event registration with date, time, and capacity validation
+- Attendee registration and event sign-up, with waitlist ("en espera"), confirmation, and cancellation states
+- Automatic capacity enforcement — an event locks itself once it reaches its confirmed-attendee limit
+- Assign artists to events, with duplicate-assignment protection
+- Reports: artist participation, upcoming events, registered attendees, and lowest-turnout events
+
+---
+
+## 👥 Team
 
 - Scrum Master: Jorge Gomez
-- Desarrollador 1: Felipe Corzo
-- Desarrollador 2: Victor Guzman
+- Developer: Felipe Corzo
+- Developer: Victor Guzman
 
 ---
 
-### 🧩 Metodología Scrum aplicada
+## 🧩 Scrum methodology
 
-El desarrollo del proyecto se gestionó bajo el marco de trabajo **Scrum**, implementando lo siguiente:
+The project was managed under the Scrum framework:
 
-- **Product Backlog:** contiene las historias de usuario priorizadas (HU1–HU10).  
-- **Sprint Backlog:** tareas técnicas derivadas del Product Backlog.  
-- **Sprint Review:** revisión de funcionalidades terminadas al cierre de cada sprint.  
-- **Sprint Retrospective:** evaluación del desempeño y mejora continua.  
-- **Métricas utilizadas:**
-  - **VE (Velocidad del equipo):** mide la proporción de funcionalidades completadas.  
-    > Fórmula: `VE = FR / TF`
-  - **EFC (Efectividad de la estimación):** mide la precisión entre tiempo estimado y real.  
-    > Fórmula: `EFC = TR / TTE`
+- **Product Backlog:** prioritized user stories (HU1–HU10)
+- **Sprint Backlog:** technical tasks derived from the Product Backlog
+- **Sprint Review:** review of completed functionality at the end of each sprint
+- **Sprint Retrospective:** team performance evaluation and continuous improvement
+- **Metrics used:**
+  - **Team Velocity (VE):** ratio of completed to planned functionality — `VE = FR / TF`
+  - **Estimation Effectiveness (EFC):** accuracy between estimated and actual time — `EFC = TR / TTE`
 
-#### 📊 Resultados del Sprint 1
+### Sprint 1 results
 
-| Métrica | Resultado | Interpretación |
-|----------|------------|----------------|
-| **VE (Velocidad del equipo)** | `1.0 (100%)` | Todas las historias planificadas fueron completadas. |
-| **EFC (Efectividad de la estimación)** | `0.85 (85%)` | El equipo fue más rápido que lo estimado, con una leve sobreestimación de horas. |
+| Metric | Result | Interpretation |
+|---|---|---|
+| Team Velocity (VE) | 1.0 (100%) | All planned stories were completed |
+| Estimation Effectiveness (EFC) | 0.85 (85%) | The team finished faster than estimated, with a slight overestimation of hours |
 
 ---
 
-### 🔗 Enlaces
+## 🛠️ Tech stack
 
-- [📋 Product Backlog (Google sheet)](https://docs.google.com/spreadsheets/d/1tQcDkfJbVN4MoUR56l1rBRuUrKNL8Cpl/edit?usp=sharing&ouid=114013887766905685844&rtpof=true&sd=true)
-- [🗓️ Sprint Planning (Google sheets)](https://docs.google.com/spreadsheets/d/1tSvcftRkZyYSra1b1tZKldo3GHdSz_5l/edit?usp=sharing&ouid=114013887766905685844&rtpof=true&sd=true)
-- [🧭 Tablero de Notion](https://www.notion.so/Sistema-de-Gesti-n-de-Eventos-CultuVivo-2963c9a07fe980eca259f3ddb902a52e?source=copy_link)
-- [🎬 Video documentación del MPV](https://drive.google.com/file/d/19w98i0HW8l1exVbU_vSM3gNnTBJZ4QcV/view?usp=sharing)
----
-
-### 🚀 Tecnologías utilizadas
-
-- 🐍 Python 3.12
-- 📄 JSON (almacenamiento de datos)
-- ⚙️ VS Code
-- 🔄 Git / Git flow / GitHub (control de versiones)
-- 📈 Metodología Scrum
+- Python 3.8+ (standard library only — `os`, `json`, `datetime`)
+- JSON files for local, human-readable data storage
+- Git / GitHub for version control
 
 ---
 
-### 📄 Licencia
+## ⚙️ Setup instructions
 
-Este proyecto fue desarrollado con fines educativos y de práctica académica bajo la metodología Scrum, como parte del Mini-proyecto Python de Campuslands: 'Fundación CultuVivo'.
+1. Clone the repo:
 
----
+```
+git clone https://github.com/jorgegmch/cultuvivo-events-system.git
+```
 
-### 🧱 Estructura del proyecto
+2. Run it — no dependencies to install:
 
 ```bash
-PROYECTO_CULTU_VIVO/
-│
-├── data/                        # Archivos JSON con la información del sistema
-│   ├── artistas.json             
-│   ├── asignaciones_artistas.json 
-│   ├── Asistentes.json           
-│   ├── eventos.json             
-│   ├── inscripciones.json        
-│   └── Usuarios.json             
-│
-├── docs/                        # Documentación del proyecto Scrum
-│   ├── GESTION DEL PROYECTO CultuVivo.pdf 
-│   ├── Product Backlog.xlsx      
-│   └── Sprint Planning.xlsx      
-│
-├── modules/                     # Módulos y componentes del sistema
-│   ├── CRUD.py                   
-│   ├── messages.py               
-│   ├── utils.py                  
-│   └── __pycache__/              
-│
-├── .gitignore                   # Archivos y carpetas ignorados por Git
-├── main.py                      # Archivo de ejecución del programa
-└── README.md                    # Documentación general del proyecto
+python main.py
+```
 
+---
+
+## 🧭 Usage
+
+- From the main menu, register as an attendee or log in with an existing ID.
+- **Attendees** can browse events, sign up, check their registrations, confirm/cancel status, and cancel a sign-up entirely.
+- **Artists** can view their assigned presentations and event details.
+- **Admins** can create events, register artists, assign artists to events, monitor capacity, and pull reports.
+
+---
+
+## 📁 Project structure
+
+```
+cultuvivo-events-system
+├── data/
+│   ├── admins.json
+│   ├── artistas.json
+│   ├── asignaciones_artistas.json
+│   ├── asistentes.json
+│   ├── eventos.json
+│   └── inscripciones.json
+├── docs/
+│   ├── GESTION DEL PROYECTO CultuVivo.pdf
+│   ├── Product Backlog.xlsx
+│   └── Sprint Planning.xlsx
+├── modules/
+│   ├── CRUD.py
+│   ├── messages.py
+│   └── utils.py
+├── .gitignore
+├── LICENSE
+├── main.py
+└── README.md
+```
+
+---
+
+## License
+
+MIT — see [LICENSE](LICENSE) for details.
+
+Built by the CultuVivo team — Jorge Gomez (Scrum Master), Felipe Corzo & Victor Guzman

@@ -34,6 +34,10 @@ def main():
                             u.clear_screen()
                             c.actualizar_estado_inscripcion()
                             u.pause()
+                        elif opcion == "5":
+                            u.clear_screen()
+                            c.cancelar_inscripcion()
+                            u.pause()
                         elif opcion == "0":                            
                             print("Cerrando sesión.")
                             running = False
@@ -101,6 +105,10 @@ def main():
                         if option == "1":
                             u.clear_screen()
                             c.agenda_presentaciones()
+                            u.pause()
+                        elif option == "2":
+                            u.clear_screen()
+                            c.detalles_eventos()
                             u.pause()
                         elif option == "0":
                             running= False

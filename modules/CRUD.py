@@ -2,33 +2,67 @@ import modules.utils as u
 
 #login
 def login():
-    try:
-        usuarios = u.leer_json("data/Usuarios.json")
-    except FileNotFoundError:
-        usuarios = {}
     usuario = input("   Login: ")
     if usuario == "0":
         return "salir"
-    for k, v in usuarios.items():
-        for login in v["login"]:
-            if login == usuario:
-                return k
+
+    try:
+        admins = u.leer_json("data/admins.json")
+    except FileNotFoundError:
+        admins = []
+    if usuario in admins:
+        return "admin"
+
+    try:
+        asistentes = u.leer_json("data/asistentes.json")
+    except FileNotFoundError:
+        asistentes = []
+    if any(a["cedula"] == usuario for a in asistentes):
+        return "asistente"
+
+    try:
+        artistas = u.leer_json("data/artistas.json")
+    except FileNotFoundError:
+        artistas = []
+    if any(a["id_artista"] == usuario for a in artistas):
+        return "artista"
+
     print("\nUsuario no existe!!❌   \n\nIntente nuevamente o presione '0' para salir.\n ")
     return None
 
 
 # ADMINS CRUD
 def registro_eventos():
-    eventos = u.leer_json("data/eventos.json")
-    if eventos is None:
+    try:
+        eventos = u.leer_json("data/eventos.json")
+    except FileNotFoundError:
         eventos = []
     print(">>>>  ➕ Nuevo Evento <<<<<\n")
+
     id = input("ID Evento: ")
+    while any(e["id"] == id for e in eventos):
+        print("Ya existe un evento con ese ID.")
+        id = input("ID Evento: ")
+
     nombre = input("Nombre: ")
+
     fecha = input("Fecha (AAAA-MM-DD): ")
-    hora = input("Hora: ")
+    while not u.validador_fecha(fecha):
+        print("Fecha inválida. Debe tener el formato AAAA-MM-DD.")
+        fecha = input("Fecha (AAAA-MM-DD): ")
+
+    hora = input("Hora (HH:MM): ")
+    while not u.validador_hora(hora):
+        print("Hora inválida. Debe tener el formato HH:MM.")
+        hora = input("Hora (HH:MM): ")
+
     lugar = input("Lugar: ")
+
     capacidad = input("Aforo: ")
+    while not u.validador_capacidadmaxima(capacidad):
+        print("Aforo inválido. Debe ser un número entero mayor a 0.")
+        capacidad = input("Aforo: ")
+
     estado = input("Estado del evento (activo/proximo): ").lower()
     while estado not in ["activo", "proximo"]:
         print("Estado inválido. Debe ser 'activo' o 'proximo'.")
@@ -52,7 +86,12 @@ def registro_artistas():
     except FileNotFoundError:
         artistas = []
     print(">>>>> 🎨 Nuevo Artista <<<<<\n")
-    id_artista=input("> ID : ")
+
+    id_artista = input("> ID : ")
+    while any(a["id_artista"] == id_artista for a in artistas):
+        print("Ya existe un artista con ese ID.")
+        id_artista = input("> ID : ")
+
     nombre=input("> Nombre: ")
     tipo_presentacion=input("> Tipo de presentación: ")
     tiempo_presentacion=input("> Tiempo de Presentación: ")
@@ -65,24 +104,13 @@ def registro_artistas():
     }
     artistas.append(nuevo_artista)
     u.escribir_json("data/artistas.json",artistas)
-
-    # Agregar al login de artistas
-    try:
-        usuarios = u.leer_json("data/Usuarios.json")
-    except FileNotFoundError:
-        usuarios = {"artista": {"login": []}}
-    if "artista" not in usuarios:
-        usuarios["artista"] = {"login": []}
-    if id_artista not in usuarios["artista"]["login"]:
-        usuarios["artista"]["login"].append(id_artista)
-    u.escribir_json("data/Usuarios.json", usuarios)
     print(f"Artista {nombre} registrado correctamente!")
 
 
 def asignar_artista_evento():
     # Mostrar eventos disponibles
     eventos = u.leer_json("data/eventos.json")
-    if eventos is None or len(eventos) == 0:
+    if not eventos:
         print("No hay eventos disponibles.")
         return
     print(">>>> 📅 Eventos Disponibles <<<<<")
@@ -96,7 +124,7 @@ def asignar_artista_evento():
 
     # Mostrar artistas disponibles
     artistas = u.leer_json("data/artistas.json")
-    if artistas is None or len(artistas) == 0:
+    if not artistas:
         print("No hay artistas disponibles.")
         return
     print(">>>> 🎨 Artistas Disponibles <<<<<")
@@ -127,13 +155,13 @@ def asignar_artista_evento():
 
 def monitorear_aforo():
     eventos = u.leer_json("data/eventos.json")
-    if eventos is None or len(eventos) == 0:
+    if not eventos:
         print("No hay eventos disponibles.")
         return
 
     # Filtrar solo eventos activos
     activos = [e for e in eventos if e.get("estado") == "activo"]
-    if len(activos) == 0:
+    if not activos:
         print("No hay eventos activos para monitorear.")
         return
 
@@ -231,8 +259,8 @@ def ver_proximos_eventos():
     print()
 
 def listado_asistentes():
-    asistentes = u.leer_json("data/Asistentes.json")
-    if asistentes is None or len(asistentes) == 0:
+    asistentes = u.leer_json("data/asistentes.json")
+    if not asistentes:
         print("No hay asistentes registrados.")
         return
     print(">>>> 👥 Listado de Asistentes <<<<<")
@@ -265,7 +293,7 @@ def eventos_menos_asistentes():
 def agenda_presentaciones():
     artista_id = input("Ingrese su ID de artista: ")
     asignaciones = u.leer_json("data/asignaciones_artistas.json")
-    if asignaciones is None or len(asignaciones) == 0:
+    if not asignaciones:
         print("No hay asignaciones de presentaciones.")
         return
     mis_asignaciones = [a for a in asignaciones if a['artista_id'] == artista_id]
@@ -286,7 +314,7 @@ def agenda_presentaciones():
 def detalles_eventos():
     artista_id = input("Ingrese su ID de artista: ")
     asignaciones = u.leer_json("data/asignaciones_artistas.json")
-    if asignaciones is None or len(asignaciones) == 0:
+    if not asignaciones:
         print("No hay asignaciones de presentaciones.")
         return
     mis_asignaciones = [a for a in asignaciones if a['artista_id'] == artista_id]
@@ -312,7 +340,7 @@ def nuevo_asistente():
 
     # Leer asistentes existentes o iniciar lista vacía
     try:
-        total_asistentes = u.leer_json("data/Asistentes.json")
+        total_asistentes = u.leer_json("data/asistentes.json")
     except FileNotFoundError:
         total_asistentes = []
 
@@ -331,24 +359,12 @@ def nuevo_asistente():
         "tipo_boleta": ""
     })
 
-    # Leer usuarios existentes o iniciar dict por defecto
-    try:
-        asistentes = u.leer_json("data/Usuarios.json")
-    except FileNotFoundError:
-        asistentes = {"asistente": {"login": []}}
-
-    # Agregar ID al login si no existe
-    if id not in asistentes["asistente"]["login"]:
-        asistentes["asistente"]["login"].append(id)
-
-    # Escribir de vuelta
-    u.escribir_json("data/Asistentes.json", total_asistentes)
-    u.escribir_json("data/Usuarios.json", asistentes)
+    u.escribir_json("data/asistentes.json", total_asistentes)
     print(f"{nombre} Registrado correctamete! ")
 
 def ver_eventos_disponibles():
     eventos = u.leer_json("data/eventos.json")
-    if eventos is None or len(eventos) == 0:
+    if not eventos:
         print("No hay eventos disponibles.")
         return
     # Filtrar eventos no bloqueados

@@ -17,6 +17,7 @@ def menu_asistentes():
     print("2. ✍️  Inscribirse en un evento")
     print("3. 📄  Ver mis inscripciones")
     print("4. 🔄  Actualizar estado de inscripción")
+    print("5. ❌  Cancelar inscripción")
     print("0. 🚪 Cerrar Sesion")
     opcion=input(">>  ")
     return opcion
@@ -25,6 +26,7 @@ def menu_artistas():
     u.clear_screen()
     print(">>>> 🎤 Menú de Artistas <<<<<")
     print("1. 📅 Ver agenda de presentaciones")
+    print("2. 📋 Ver detalles de eventos asignados")
     print("0. 🚪 Cerrar Sesion")
     opcion=input(">>  ")
     return opcion
