@@ -28,12 +28,6 @@ def validador_hora(hora):
     except ValueError:
         return False
 
-def asignar_boleto():
-    pass
-
-def validador_imput():
-    pass
-
 def escribir_json(filename, data):
     with open(filename, 'w') as f:
         json.dump(data, f, indent=4)
