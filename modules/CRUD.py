@@ -23,12 +23,31 @@ def registro_eventos():
     if eventos is None:
         eventos = []
     print(">>>>  ➕ Nuevo Evento <<<<<\n")
+
     id = input("ID Evento: ")
+    while any(e["id"] == id for e in eventos):
+        print("Ya existe un evento con ese ID.")
+        id = input("ID Evento: ")
+
     nombre = input("Nombre: ")
+
     fecha = input("Fecha (AAAA-MM-DD): ")
-    hora = input("Hora: ")
+    while not u.validador_fecha(fecha):
+        print("Fecha inválida. Debe tener el formato AAAA-MM-DD.")
+        fecha = input("Fecha (AAAA-MM-DD): ")
+
+    hora = input("Hora (HH:MM): ")
+    while not u.validador_hora(hora):
+        print("Hora inválida. Debe tener el formato HH:MM.")
+        hora = input("Hora (HH:MM): ")
+
     lugar = input("Lugar: ")
+
     capacidad = input("Aforo: ")
+    while not u.validador_capacidadmaxima(capacidad):
+        print("Aforo inválido. Debe ser un número entero mayor a 0.")
+        capacidad = input("Aforo: ")
+
     estado = input("Estado del evento (activo/proximo): ").lower()
     while estado not in ["activo", "proximo"]:
         print("Estado inválido. Debe ser 'activo' o 'proximo'.")
@@ -52,7 +71,12 @@ def registro_artistas():
     except FileNotFoundError:
         artistas = []
     print(">>>>> 🎨 Nuevo Artista <<<<<\n")
-    id_artista=input("> ID : ")
+
+    id_artista = input("> ID : ")
+    while any(a["id_artista"] == id_artista for a in artistas):
+        print("Ya existe un artista con ese ID.")
+        id_artista = input("> ID : ")
+
     nombre=input("> Nombre: ")
     tipo_presentacion=input("> Tipo de presentación: ")
     tiempo_presentacion=input("> Tiempo de Presentación: ")
