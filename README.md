@@ -1,4 +1,4 @@
-# CultuVivo Events Management System
+﻿# CultuVivo Events Management System
 
 A terminal-based system for managing cultural events, artists, and attendees — built in Python with a role-based menu (admin, artist, attendee) and JSON file storage. Developed as a team project using Scrum.
 
@@ -42,6 +42,12 @@ The project was managed under the Scrum framework:
 |---|---|---|
 | Team Velocity (VE) | 1.0 (100%) | All planned stories were completed |
 | Estimation Effectiveness (EFC) | 0.85 (85%) | The team finished faster than estimated, with a slight overestimation of hours |
+
+## 📎 Documentation
+
+- [Project Management Document (PDF)](docs/GESTION%20DEL%20PROYECTO%20CultuVivo.pdf)
+- [Product Backlog (Excel)](docs/Product%20Backlog.xlsx)
+- [Sprint Planning (Excel)](docs/Sprint%20Planning.xlsx)
 
 ---
 
@@ -109,4 +115,4 @@ cultuvivo-events-system
 
 MIT — see [LICENSE](LICENSE) for details.
 
-Built by the CultuVivo team — Jorge Gomez (Scrum Master), Felipe Corzo & Victor Guzman
+Built by the CultuVivo team — Jorge Gomez (Scrum Master), Felipe Corzo, Victor Guzman
