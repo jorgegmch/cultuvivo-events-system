@@ -2,17 +2,31 @@ import modules.utils as u
 
 #login
 def login():
-    try:
-        usuarios = u.leer_json("data/Usuarios.json")
-    except FileNotFoundError:
-        usuarios = {}
     usuario = input("   Login: ")
     if usuario == "0":
         return "salir"
-    for k, v in usuarios.items():
-        for login in v["login"]:
-            if login == usuario:
-                return k
+
+    try:
+        admins = u.leer_json("data/admins.json")
+    except FileNotFoundError:
+        admins = []
+    if usuario in admins:
+        return "admin"
+
+    try:
+        asistentes = u.leer_json("data/asistentes.json")
+    except FileNotFoundError:
+        asistentes = []
+    if any(a["cedula"] == usuario for a in asistentes):
+        return "asistente"
+
+    try:
+        artistas = u.leer_json("data/artistas.json")
+    except FileNotFoundError:
+        artistas = []
+    if any(a["id_artista"] == usuario for a in artistas):
+        return "artista"
+
     print("\nUsuario no existe!!❌   \n\nIntente nuevamente o presione '0' para salir.\n ")
     return None
 
@@ -89,17 +103,6 @@ def registro_artistas():
     }
     artistas.append(nuevo_artista)
     u.escribir_json("data/artistas.json",artistas)
-
-    # Agregar al login de artistas
-    try:
-        usuarios = u.leer_json("data/Usuarios.json")
-    except FileNotFoundError:
-        usuarios = {"artista": {"login": []}}
-    if "artista" not in usuarios:
-        usuarios["artista"] = {"login": []}
-    if id_artista not in usuarios["artista"]["login"]:
-        usuarios["artista"]["login"].append(id_artista)
-    u.escribir_json("data/Usuarios.json", usuarios)
     print(f"Artista {nombre} registrado correctamente!")
 
 
@@ -255,7 +258,7 @@ def ver_proximos_eventos():
     print()
 
 def listado_asistentes():
-    asistentes = u.leer_json("data/Asistentes.json")
+    asistentes = u.leer_json("data/asistentes.json")
     if asistentes is None or len(asistentes) == 0:
         print("No hay asistentes registrados.")
         return
@@ -336,7 +339,7 @@ def nuevo_asistente():
 
     # Leer asistentes existentes o iniciar lista vacía
     try:
-        total_asistentes = u.leer_json("data/Asistentes.json")
+        total_asistentes = u.leer_json("data/asistentes.json")
     except FileNotFoundError:
         total_asistentes = []
 
@@ -355,19 +358,7 @@ def nuevo_asistente():
         "tipo_boleta": ""
     })
 
-    # Leer usuarios existentes o iniciar dict por defecto
-    try:
-        asistentes = u.leer_json("data/Usuarios.json")
-    except FileNotFoundError:
-        asistentes = {"asistente": {"login": []}}
-
-    # Agregar ID al login si no existe
-    if id not in asistentes["asistente"]["login"]:
-        asistentes["asistente"]["login"].append(id)
-
-    # Escribir de vuelta
-    u.escribir_json("data/Asistentes.json", total_asistentes)
-    u.escribir_json("data/Usuarios.json", asistentes)
+    u.escribir_json("data/asistentes.json", total_asistentes)
     print(f"{nombre} Registrado correctamete! ")
 
 def ver_eventos_disponibles():

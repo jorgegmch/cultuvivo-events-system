@@ -1,3 +1,20 @@
 [
-   
+    {
+        "id": "1",
+        "nombre": "Evento test",
+        "fecha": "2026-12-01",
+        "hora": "20:00",
+        "lugar": "Lugar test",
+        "capacidad": "50",
+        "estado": "activo"
+    },
+    {
+        "id": "2",
+        "nombre": "Evento test 2",
+        "fecha": "2026-12-01",
+        "hora": "21:00",
+        "lugar": "Lugar test 2",
+        "capacidad": "50",
+        "estado": "activo"
+    }
 ]
