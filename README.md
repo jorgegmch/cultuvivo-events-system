@@ -1,4 +1,4 @@
-﻿# CultuVivo Events Management System
+# CultuVivo Events Management System
 
 A terminal-based system for managing cultural events, artists, and attendees — built in Python with a role-based menu (admin, artist, attendee) and JSON file storage. Developed as a team project using Scrum.
 
